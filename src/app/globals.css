@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #000000; /* Pure black background */
+  --color-foreground: #ffffff;
+  --font-sans: 'Inter', 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* ---- BASE ---- */
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+body { background: #000000; color: #ffffff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+::selection { background: rgba(59, 130, 246, 0.3); color: #fff; } /* Blue selection */
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #000000; }
+::-webkit-scrollbar-thumb { background: #1e3a8a; border-radius: 4px; } /* Dark Blue scrollbar */
+::-webkit-scrollbar-thumb:hover { background: #3b82f6; } /* Blue scrollbar hover */
+
+/* ---- GLASS ---- */
+.glass { background: rgba(10, 15, 30, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(59, 130, 246, 0.15); }
+.glass-card { background: rgba(10, 15, 25, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(59, 130, 246, 0.1); border-radius: 20px; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+.glass-card:hover { background: rgba(15, 25, 45, 0.8); border-color: rgba(59, 130, 246, 0.3); box-shadow: 0 15px 40px rgba(59, 130, 246, 0.08); }
+
+/* ---- TEXT ---- */
+/* Blue Gradient Text */
+.gradient-text { background: linear-gradient(135deg, #60a5fa, #3b82f6, #2563eb); background-size: 200% 200%; animation: gradText 4s ease infinite; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+@keyframes gradText { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+/* ---- ANIMATED BG ---- */
+.gradient-bg { background: #000000; }
+
+/* ---- GLOW BUTTON ---- */
+.btn-glow { position: relative; overflow: hidden; background: rgba(37, 99, 235, 0.1); color: #ffffff; border: 1px solid rgba(59, 130, 246, 0.4); }
+.btn-glow::after { content: ''; position: absolute; inset: -2px; background: linear-gradient(135deg, #60a5fa, #2563eb, #60a5fa); border-radius: inherit; z-index: -1; opacity: 0; transition: opacity 0.4s; background-size: 300% 300%; animation: gradText 3s ease infinite; }
+.btn-glow:hover::after { opacity: 1; }
+.btn-glow:hover { box-shadow: 0 0 25px rgba(59, 130, 246, 0.3); color: #ffffff; border-color: transparent; }
+
+.btn-outline { background: transparent; color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); }
+.btn-outline:hover { background: rgba(59, 130, 246, 0.15); border-color: rgba(59, 130, 246, 0.4); }
+
+/* ---- TYPING CURSOR ---- */
+.typing-cursor { display: inline-block; width: 3px; height: 1.2em; background: #60a5fa; margin-left: 4px; animation: blink 1s infinite; vertical-align: text-bottom; }
+@keyframes blink { 0%,50% { opacity: 1; } 51%,100% { opacity: 0; } }
+
+/* ---- SHIMMER ---- */
+.shimmer { position: relative; overflow: hidden; }
+.shimmer::after { content: ''; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 40%, rgba(59, 130, 246, 0.1) 45%, rgba(59, 130, 246, 0.2) 50%, rgba(59, 130, 246, 0.1) 55%, transparent 60%); background-size: 200% 100%; animation: shimmerSlide 6s ease-in-out infinite; pointer-events: none; }
+@keyframes shimmerSlide { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+/* ---- HOLO BORDER ---- */
+.holo-border { position: relative; }
+.holo-border::before { content: ''; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(96, 165, 250, 0.5), rgba(37, 99, 235, 0.2)); background-size: 300% 300%; animation: holoBorder 5s ease infinite; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; -webkit-mask-composite: xor; opacity: 0.3; transition: opacity 0.4s; pointer-events: none; }
+.holo-border:hover::before { opacity: 0.8; }
+@keyframes holoBorder { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+/* ---- SECTION DIVIDER ---- */
+.section-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent); }
+
+/* ---- TIMELINE ---- */
+.timeline-line { background: linear-gradient(180deg, #1e3a8a, #3b82f6, #60a5fa); }
+
+/* ---- NEON UNDERLINE ---- */
+.neon-underline { position: relative; }
+.neon-underline::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: #3b82f6; transition: width 0.4s; box-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
+.neon-underline:hover::after { width: 100%; }
+
+/* ---- 3D TILT CARD ---- */
+.tilt-card { transform-style: preserve-3d; perspective: 1000px; }
+
+/* ---- ANIMATIONS ---- */
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+.animate-float { animation: float 6s ease-in-out infinite; }
+@keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.animate-spin-slow { animation: spinSlow 25s linear infinite; }
+
+/* ---- GRID PATTERN ---- */
+/* Very subtle blue grid on black background */
+.grid-pattern { background-image: linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px); background-size: 60px 60px; }
