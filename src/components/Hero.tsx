@@ -1,102 +1,182 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-
-const titles = ["DevOps Enthusiast", "AWS Cloud Intern", "Full Stack Developer", "Problem Solver", "Linux Lover"];
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
 
 export default function Hero() {
-  const [titleIndex, setTitleIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
+  const container = useRef<HTMLElement>(null);
+  const badgeRef = useRef<HTMLDivElement>(null);
+  const helloRef = useRef<HTMLParagraphElement>(null);
+  const firstNameRef = useRef<HTMLSpanElement>(null);
+  const lastNameRef = useRef<HTMLSpanElement>(null);
+  const typewriterRef = useRef<HTMLDivElement>(null);
+  const descRef = useRef<HTMLParagraphElement>(null);
+  const btnsRef = useRef<HTMLDivElement>(null);
+  const avatarRef = useRef<HTMLDivElement>(null);
+  
+  const titles = ['DevOps Enthusiast', 'AWS Cloud Intern', 'Full Stack Developer', 'Problem Solver', 'Linux Lover'];
+  const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
+  const [currentText, setCurrentText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
+  // Typewriter effect
   useEffect(() => {
-    const current = titles[titleIndex];
-    let timeout: NodeJS.Timeout;
-    if (!isDeleting && charIndex < current.length) {
-      timeout = setTimeout(() => setCharIndex((c) => c + 1), 80);
-    } else if (!isDeleting && charIndex === current.length) {
-      timeout = setTimeout(() => setIsDeleting(true), 2000);
-    } else if (isDeleting && charIndex > 0) {
-      timeout = setTimeout(() => setCharIndex((c) => c - 1), 40);
-    } else if (isDeleting && charIndex === 0) {
+    const title = titles[currentTitleIndex];
+    let timeoutId: NodeJS.Timeout;
+
+    if (!isDeleting && currentText === title) {
+      timeoutId = setTimeout(() => setIsDeleting(true), 2000);
+    } else if (isDeleting && currentText === "") {
       setIsDeleting(false);
-      setTitleIndex((i) => (i + 1) % titles.length);
+      setCurrentTitleIndex((prev) => (prev + 1) % titles.length);
+    } else {
+      timeoutId = setTimeout(() => {
+        setCurrentText(title.substring(0, currentText.length + (isDeleting ? -1 : 1)));
+      }, isDeleting ? 50 : 100);
     }
-    return () => clearTimeout(timeout);
-  }, [charIndex, isDeleting, titleIndex]);
+
+    return () => clearTimeout(timeoutId);
+  }, [currentText, isDeleting, currentTitleIndex, titles]);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // Entrance Timeline
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    
+    tl.fromTo(badgeRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 })
+      .fromTo(helloRef.current, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.5 }, "-=0.2")
+      .fromTo(firstNameRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, "-=0.2")
+      .fromTo(lastNameRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, "-=0.3")
+      .fromTo(typewriterRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5 }, "-=0.1")
+      .fromTo(descRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 }, "-=0.2")
+      .fromTo(btnsRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 }, "-=0.4")
+      .fromTo(avatarRef.current, { opacity: 0, scale: 0.8, filter: "blur(10px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 1 }, "-=1");
+
+    // Parallax Orbs
+    gsap.to(".glow-orb-1", {
+      y: -150,
+      scrollTrigger: {
+        trigger: container.current,
+        start: "top top",
+        end: "bottom top",
+        scrub: 1
+      }
+    });
+
+    gsap.to(".glow-orb-2", {
+      y: -100,
+      scrollTrigger: {
+        trigger: container.current,
+        start: "top top",
+        end: "bottom top",
+        scrub: 1.5
+      }
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    };
+  }, []);
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden grid-pattern pt-20">
-      {/* Subtle Blue Glows */}
-      <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }} transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }} className="absolute top-1/4 -left-32 w-72 h-72 sm:w-[500px] sm:h-[500px] bg-blue-900/20 rounded-full blur-[120px]" />
-      <motion.div animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2] }} transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }} className="absolute bottom-1/4 -right-32 w-72 h-72 sm:w-[500px] sm:h-[500px] bg-sky-900/20 rounded-full blur-[120px]" />
-      
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] sm:w-[800px] sm:h-[800px] opacity-[0.05] pointer-events-none">
-        <div className="w-full h-full border border-blue-500 rounded-full animate-spin-slow" />
-        <div className="absolute inset-12 border border-sky-400 rounded-full animate-spin-slow" style={{ animationDirection: "reverse", animationDuration: "35s" }} />
-      </div>
+    <section id="home" ref={container} className="relative min-h-screen grid-pattern flex items-center justify-center pt-20 overflow-hidden bg-black">
+      {/* Background glow orbs */}
+      <motion.div 
+        className="glow-orb-1 absolute top-1/4 left-1/4 w-64 h-64 bg-emerald-600/15 rounded-full blur-[100px] pointer-events-none"
+        animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div 
+        className="glow-orb-2 absolute bottom-1/4 right-1/4 w-80 h-80 bg-amber-600/15 rounded-full blur-[100px] pointer-events-none"
+        animate={{ scale: [1, 1.3, 1], opacity: [0.15, 0.3, 0.15] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+      />
 
-      <div className="relative z-10 px-4 sm:px-6 max-w-6xl mx-auto w-full flex flex-col md:flex-row items-center justify-between gap-12">
-        {/* Text Content */}
-        <div className="flex-1 text-center md:text-left mt-10 md:mt-0">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 rounded-full border border-blue-500/20 bg-blue-500/10 text-sm text-blue-300 shimmer">
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            Available for opportunities
-          </motion.div>
-
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }} className="text-base sm:text-lg md:text-xl text-zinc-400 font-mono mb-3">
-            Hello, I&apos;m
-          </motion.p>
-
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }} className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-4">
-            <span className="text-white">Dilip</span>{" "}
-            <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">Kumawat</span>
-          </motion.h1>
-
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.4 }} className="text-lg sm:text-xl md:text-2xl font-medium text-zinc-300 mb-6 min-h-[2rem]">
-            <span className="text-blue-500/60 font-mono">&gt; </span>
-            <span>{titles[titleIndex].substring(0, charIndex)}</span>
-            <span className="typing-cursor" />
-          </motion.div>
-
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.5 }} className="text-sm sm:text-base md:text-lg text-zinc-400 max-w-lg mx-auto md:mx-0 mb-8 leading-relaxed">
-            B.Tech 3rd Year CSE student at Arya College of Engineering, Jaipur. Passionate about DevOps, Cloud Computing, and building scalable solutions.
-          </motion.p>
-
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.6 }} className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-3 sm:gap-4">
-            <motion.a href="#projects" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn-glow w-full sm:w-auto px-6 py-3 rounded-xl font-semibold text-sm sm:text-base border border-blue-500/20 bg-blue-600/10">
-              ⚡ View Projects
-            </motion.a>
-            <motion.a href="#contact" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn-outline w-full sm:w-auto px-6 py-3 rounded-xl font-semibold text-sm sm:text-base border-blue-500/30 hover:bg-blue-500/10">
-              📬 Contact Me
-            </motion.a>
-          </motion.div>
-        </div>
-
-        {/* Avatar Image */}
-        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.3 }} className="flex-1 flex justify-center md:justify-end">
-          <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96">
-            <div className="absolute inset-0 bg-gradient-to-tr from-blue-900 to-sky-900 rounded-full animate-spin-slow opacity-30 blur-2xl" />
-            <div className="absolute inset-4 rounded-full border border-blue-500/30 glass p-2 shadow-2xl shadow-blue-500/20">
-              <div className="relative w-full h-full rounded-full overflow-hidden border border-blue-400/20">
-                {/* Changed to unoptimized={true} to fix 404/broken image issues */}
-                <Image src="/assets/avatar.jpg" alt="Dilip Kumawat Avatar" fill className="object-cover" priority unoptimized={true} />
-              </div>
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
+          
+          {/* Left Content */}
+          <div className="flex-1 flex flex-col items-start text-left space-y-6">
+            <div ref={badgeRef} className="glass-card px-4 py-2 rounded-full flex items-center space-x-2 border border-white/10">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span className="text-sm font-medium text-gray-300">Available for opportunities</span>
             </div>
-            <div className="absolute -bottom-4 -right-4 bg-zinc-900 border border-blue-500/30 rounded-2xl p-4 glass-card shadow-xl transform rotate-6 hover:rotate-12 transition-transform cursor-default">
-              <span className="text-3xl">🔥</span>
+
+            <div className="space-y-2">
+              <p ref={helloRef} className="text-xl md:text-2xl text-gray-400 font-medium tracking-wide">Hello, I'm</p>
+              <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white flex flex-col sm:flex-row sm:space-x-4">
+                <span ref={firstNameRef}>Dilip</span>
+                <span ref={lastNameRef} className="gradient-text-hero">Kumawat</span>
+              </h1>
+            </div>
+
+            <div ref={typewriterRef} className="h-8 text-xl md:text-3xl font-semibold text-gray-300 flex items-center">
+              <span>I am a </span>
+              <span className="ml-2 text-emerald-400">{currentText}</span>
+              <span className="w-1 h-8 bg-emerald-400 ml-1 animate-pulse"></span>
+            </div>
+
+            <p ref={descRef} className="text-gray-400 text-lg md:text-xl max-w-2xl leading-relaxed">
+              B.Tech 3rd Year CSE student at Arya College of Engineering, Jaipur. Passionate about DevOps, Cloud Computing, and building scalable solutions.
+            </p>
+
+            <div ref={btnsRef} className="flex flex-wrap gap-4 pt-4">
+              <a href="#projects" className="btn-glow px-8 py-3 rounded-full font-medium text-white bg-emerald-600 hover:bg-emerald-700 transition-colors flex items-center space-x-2">
+                <span>⚡ View Projects</span>
+              </a>
+              <a href="#contact" className="btn-outline px-8 py-3 rounded-full font-medium text-white border border-white/20 hover:border-emerald-500 hover:bg-white/5 transition-all flex items-center space-x-2">
+                <span>📬 Contact Me</span>
+              </a>
             </div>
           </div>
-        </motion.div>
+
+          {/* Right Content - Avatar */}
+          <div ref={avatarRef} className="relative w-64 h-64 md:w-80 md:h-80 flex-shrink-0">
+            {/* Spinning decorative rings */}
+            <div className="absolute inset-[-20px] rounded-full border border-emerald-500/20 animate-[spin_10s_linear_infinite]" />
+            <div className="absolute inset-[-40px] rounded-full border border-amber-500/10 animate-[spin_15s_linear_infinite_reverse]" />
+            
+            {/* Main Avatar Container */}
+            <div className="relative w-full h-full rounded-full p-2 bg-gradient-to-tr from-emerald-600 to-amber-500 animate-[spin_4s_linear_infinite]">
+              <div className="w-full h-full rounded-full overflow-hidden bg-black animate-[spin_4s_linear_infinite_reverse]">
+                <div className="relative w-full h-full rounded-full overflow-hidden">
+                  <Image 
+                    src="/assets/avatar.jpg"
+                    alt="Dilip Kumawat"
+                    fill
+                    unoptimized={true}
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Floating Badge */}
+            <motion.div 
+              className="absolute bottom-4 right-4 glass-card p-3 rounded-2xl border border-white/10 shadow-xl"
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <span className="text-2xl">🔥</span>
+            </motion.div>
+          </div>
+        </div>
       </div>
 
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 1.2 }} className="absolute bottom-10 left-1/2 -translate-x-1/2">
-        <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 2, repeat: Infinity }} className="w-5 h-8 mx-auto border-2 border-blue-500/50 rounded-full flex items-start justify-center p-1.5">
-          <motion.div animate={{ opacity: [0.4, 1, 0.4], height: [4, 8, 4] }} transition={{ duration: 2, repeat: Infinity }} className="w-1 bg-blue-400 rounded-full" />
-        </motion.div>
-      </motion.div>
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center">
+        <div className="w-6 h-10 border-2 border-gray-500 rounded-full p-1">
+          <motion.div 
+            className="w-1.5 h-1.5 bg-gray-400 rounded-full mx-auto"
+            animate={{ y: [0, 12, 0], opacity: [1, 0, 1] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </div>
+      </div>
     </section>
   );
 }
