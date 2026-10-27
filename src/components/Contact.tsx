@@ -166,11 +166,11 @@ export default function Contact() {
     <section id="contact" className="py-24 relative z-10" ref={containerRef}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <span className="inline-block py-1 px-3 rounded-full bg-emerald-900/30 border border-emerald-500/30 text-emerald-400 text-sm font-medium tracking-wider mb-4 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+          <span className="inline-block py-1 px-3.5 rounded-full bg-white/10 border border-white/15 text-white text-xs font-semibold tracking-wider uppercase mb-3 shadow-sm">
             GET IN TOUCH
           </span>
           <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight">
-            Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-amber-400">Connect</span>
+            Let's <span className="text-white">Connect</span>
           </h2>
         </div>
 
@@ -183,60 +183,60 @@ export default function Contact() {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="glass-card holo-border p-6 rounded-xl flex items-center space-x-6 hover:-translate-y-1 hover:bg-emerald-900/10 transition-all duration-300 group"
+                className="glass-card holo-border p-6 rounded-xl flex items-center space-x-6 hover:-translate-y-1 hover:bg-white/5 transition-all duration-300 group border border-white/10"
               >
-                <div className="w-14 h-14 rounded-full bg-emerald-900/40 border border-emerald-500/30 flex items-center justify-center text-emerald-300 group-hover:text-amber-400 group-hover:border-amber-500/50 group-hover:shadow-[0_0_20px_rgba(245,158,11,0.4)] transition-all duration-300">
+                <div className="w-14 h-14 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white group-hover:bg-white group-hover:text-black group-hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-all duration-300">
                   {social.icon}
                 </div>
                 <div>
-                  <h3 className="text-gray-400 text-sm font-medium mb-1">{social.name}</h3>
-                  <p className="text-white text-lg font-medium group-hover:text-emerald-300 transition-colors">{social.value}</p>
+                  <h3 className="text-zinc-300 text-xs font-medium uppercase tracking-wider mb-1">{social.name}</h3>
+                  <p className="text-white text-lg font-medium transition-colors">{social.value}</p>
                 </div>
               </a>
             ))}
           </div>
 
-          <form ref={formRef} onSubmit={handleSubmit} className="glass-card p-8 rounded-2xl border border-white/5 bg-[#0a0a0a]/60 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 via-amber-500 to-emerald-500 opacity-50"></div>
+          <form ref={formRef} onSubmit={handleSubmit} className="glass-card p-8 rounded-2xl border border-white/10 bg-[#0a0a0a]/60 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-white/30 via-zinc-400 to-white/30 opacity-50"></div>
             
             <h3 className="text-2xl font-bold text-white mb-6">Send me a message</h3>
             
             <div className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-400 mb-2">Your Name</label>
+                <label htmlFor="name" className="block text-sm font-medium text-white mb-2">Your Name</label>
                 <input 
                   type="text" 
                   id="name" 
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-all duration-300"
+                  className="w-full bg-white/5 border border-white/15 rounded-lg px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-white/50 focus:ring-1 focus:ring-white/50 transition-all duration-300"
                   placeholder="John Doe"
                 />
               </div>
               
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-2">Your Email</label>
+                <label htmlFor="email" className="block text-sm font-medium text-white mb-2">Your Email</label>
                 <input 
                   type="email" 
                   id="email" 
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/50 transition-all duration-300"
+                  className="w-full bg-white/5 border border-white/15 rounded-lg px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-white/50 focus:ring-1 focus:ring-white/50 transition-all duration-300"
                   placeholder="john@example.com"
                 />
               </div>
               
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-400 mb-2">Message</label>
+                <label htmlFor="message" className="block text-sm font-medium text-white mb-2">Message</label>
                 <textarea 
                   id="message" 
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   rows={4}
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-all duration-300 resize-none"
+                  className="w-full bg-white/5 border border-white/15 rounded-lg px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-white/50 focus:ring-1 focus:ring-white/50 transition-all duration-300 resize-none"
                   placeholder="How can I help you?"
                 ></textarea>
               </div>
@@ -244,11 +244,11 @@ export default function Contact() {
               <button 
                 type="submit" 
                 disabled={status === 'loading'}
-                className={`w-full py-4 rounded-lg flex items-center justify-center space-x-2 font-semibold transition-all duration-300 ${
-                  status === 'idle' ? 'bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)]' :
-                  status === 'loading' ? 'bg-emerald-600/50 text-white animate-pulse' :
-                  status === 'success' ? 'bg-green-500/80 text-white shadow-[0_0_20px_rgba(34,197,94,0.4)]' :
-                  'bg-red-500/80 text-white shadow-[0_0_20px_rgba(239,68,68,0.4)]'
+                className={`w-full py-4 rounded-xl flex items-center justify-center space-x-2 font-semibold transition-all duration-300 cursor-pointer ${
+                  status === 'idle' ? 'bg-white hover:bg-zinc-200 text-black shadow-[0_0_20px_rgba(255,255,255,0.2)]' :
+                  status === 'loading' ? 'bg-white/50 text-black animate-pulse' :
+                  status === 'success' ? 'bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.4)]' :
+                  'bg-red-500 text-white'
                 }`}
               >
                 {status === 'idle' && <><Send size={18} /> <span>Send Message</span></>}

@@ -5,8 +5,11 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
+import { Camera } from "lucide-react";
+import { usePortfolio } from "@/context/PortfolioContext";
 
 export default function Hero() {
+  const { avatarUrl, openAdminModal, isAuthenticated } = usePortfolio();
   const container = useRef<HTMLElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
   const helloRef = useRef<HTMLParagraphElement>(null);
@@ -102,50 +105,50 @@ export default function Hero() {
           {/* Left Content */}
           <div className="flex-1 flex flex-col items-start text-left space-y-6">
             <div ref={badgeRef} className="glass-card px-4 py-2 rounded-full flex items-center space-x-2 border border-white/10">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span className="text-sm font-medium text-gray-300">Available for opportunities</span>
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span className="text-sm font-medium text-white">Available for opportunities</span>
             </div>
 
             <div className="space-y-2">
-              <p ref={helloRef} className="text-xl md:text-2xl text-gray-400 font-medium tracking-wide">Hello, I'm</p>
+              <p ref={helloRef} className="text-xl md:text-2xl text-zinc-200 font-medium tracking-wide">Hello, I'm</p>
               <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white flex flex-col sm:flex-row sm:space-x-4">
-                <span ref={firstNameRef}>Dilip</span>
-                <span ref={lastNameRef} className="gradient-text-hero">Kumawat</span>
+                <span ref={firstNameRef} className="text-white">Dilip</span>
+                <span ref={lastNameRef} className="text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.3)]">Kumawat</span>
               </h1>
             </div>
 
-            <div ref={typewriterRef} className="h-8 text-xl md:text-3xl font-semibold text-gray-300 flex items-center">
+            <div ref={typewriterRef} className="h-8 text-xl md:text-3xl font-semibold text-white flex items-center">
               <span>I am a </span>
-              <span className="ml-2 text-emerald-400">{currentText}</span>
-              <span className="w-1 h-8 bg-emerald-400 ml-1 animate-pulse"></span>
+              <span className="ml-2 text-white font-bold drop-shadow-sm">{currentText}</span>
+              <span className="w-1 h-8 bg-white ml-1 animate-pulse"></span>
             </div>
 
-            <p ref={descRef} className="text-gray-400 text-lg md:text-xl max-w-2xl leading-relaxed">
+            <p ref={descRef} className="text-zinc-200 text-lg md:text-xl max-w-2xl leading-relaxed">
               B.Tech 3rd Year CSE student at Arya College of Engineering, Jaipur. Passionate about DevOps, Cloud Computing, and building scalable solutions.
             </p>
 
             <div ref={btnsRef} className="flex flex-wrap gap-4 pt-4">
-              <a href="#projects" className="btn-glow px-8 py-3 rounded-full font-medium text-white bg-emerald-600 hover:bg-emerald-700 transition-colors flex items-center space-x-2">
+              <a href="#projects" className="btn-glow px-8 py-3 rounded-full font-medium text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-colors flex items-center space-x-2 shadow-lg">
                 <span>⚡ View Projects</span>
               </a>
-              <a href="#contact" className="btn-outline px-8 py-3 rounded-full font-medium text-white border border-white/20 hover:border-emerald-500 hover:bg-white/5 transition-all flex items-center space-x-2">
+              <a href="#contact" className="btn-outline px-8 py-3 rounded-full font-medium text-white border border-white/20 hover:border-white/50 hover:bg-white/5 transition-all flex items-center space-x-2">
                 <span>📬 Contact Me</span>
               </a>
             </div>
           </div>
 
           {/* Right Content - Avatar */}
-          <div ref={avatarRef} className="relative w-64 h-64 md:w-80 md:h-80 flex-shrink-0">
+          <div ref={avatarRef} className="relative w-64 h-64 md:w-80 md:h-80 flex-shrink-0 group">
             {/* Spinning decorative rings */}
-            <div className="absolute inset-[-20px] rounded-full border border-emerald-500/20 animate-[spin_10s_linear_infinite]" />
-            <div className="absolute inset-[-40px] rounded-full border border-amber-500/10 animate-[spin_15s_linear_infinite_reverse]" />
+            <div className="absolute inset-[-20px] rounded-full border border-white/10 animate-[spin_10s_linear_infinite]" />
+            <div className="absolute inset-[-40px] rounded-full border border-white/5 animate-[spin_15s_linear_infinite_reverse]" />
             
             {/* Main Avatar Container */}
-            <div className="relative w-full h-full rounded-full p-2 bg-gradient-to-tr from-emerald-600 to-amber-500 animate-[spin_4s_linear_infinite]">
-              <div className="w-full h-full rounded-full overflow-hidden bg-black animate-[spin_4s_linear_infinite_reverse]">
+            <div className="relative w-full h-full rounded-full p-2 bg-gradient-to-tr from-white/30 via-zinc-400/40 to-white/20 animate-[spin_6s_linear_infinite]">
+              <div className="w-full h-full rounded-full overflow-hidden bg-black animate-[spin_6s_linear_infinite_reverse]">
                 <div className="relative w-full h-full rounded-full overflow-hidden">
                   <Image 
-                    src="/assets/avatar.jpg"
+                    src={avatarUrl}
                     alt="Dilip Kumawat"
                     fill
                     unoptimized={true}
@@ -154,6 +157,16 @@ export default function Hero() {
                 </div>
               </div>
             </div>
+
+            {/* Edit Photo Trigger Button */}
+            <button
+              onClick={() => openAdminModal("avatar")}
+              className="absolute top-2 right-2 w-10 h-10 rounded-full bg-black/80 hover:bg-white text-white hover:text-black border border-white/20 shadow-xl flex items-center justify-center transition-all duration-300 z-20 group-hover:scale-110"
+              title="Edit Profile Photo (Owner)"
+              aria-label="Edit Profile Photo"
+            >
+              <Camera size={18} />
+            </button>
 
             {/* Floating Badge */}
             <motion.div 

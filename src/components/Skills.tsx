@@ -97,9 +97,9 @@ export default function Skills() {
     <section id="skills" ref={containerRef} className="py-24 relative bg-black">
       <div className="container mx-auto px-6 relative z-10">
         <div className="mb-16 text-center">
-          <span className="text-emerald-500 uppercase tracking-wider font-semibold text-sm neon-glow-violet block mb-2">My Skills</span>
+          <span className="inline-block py-1 px-3.5 rounded-full bg-white/10 border border-white/15 text-white uppercase tracking-wider font-semibold text-xs mb-3 shadow-sm">My Skills</span>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Tech <span className="gradient-text">Arsenal</span>
+            Tech <span className="text-white">Arsenal</span>
           </h2>
           <div className="section-divider mx-auto"></div>
         </div>
@@ -109,10 +109,10 @@ export default function Skills() {
             <div
               key={index}
               ref={(el) => { cardsRef.current[index] = el; }}
-              className="glass-card shimmer holo-border tilt-card rounded-2xl overflow-hidden group hover:neon-glow-violet transition-all duration-300 relative flex flex-col h-full bg-white/5 border border-white/10"
+              className="glass-card shimmer holo-border tilt-card rounded-2xl overflow-hidden group transition-all duration-300 relative flex flex-col h-full bg-white/[0.03] border border-white/10 hover:border-white/20"
             >
               <div 
-                className={`gradient-bar absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r ${category.color}`}
+                className={`gradient-bar absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-white via-zinc-400 to-white/50`}
               ></div>
               
               <div className="p-8 flex-grow flex flex-col">
@@ -121,11 +121,11 @@ export default function Skills() {
                   <h3 className="text-xl font-bold text-white tracking-wide">{category.title}</h3>
                 </div>
                 
-                <div className="flex flex-wrap gap-3 mt-auto">
+                <div className="flex flex-wrap gap-2.5 mt-auto">
                   {category.skills.map((skill, sIdx) => (
                     <span
                       key={sIdx}
-                      className="skill-tag px-3 py-1.5 text-sm font-medium text-gray-200 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 hover:text-white transition-colors cursor-default shadow-sm"
+                      className="skill-tag px-3 py-1.5 text-xs font-medium text-white bg-white/10 border border-white/15 rounded-lg hover:bg-white/20 transition-colors cursor-default shadow-sm"
                     >
                       {skill}
                     </span>

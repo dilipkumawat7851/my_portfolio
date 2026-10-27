@@ -111,23 +111,23 @@ export default function Timeline() {
     <section id="journey" ref={sectionRef} className="py-24 relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         <div ref={headerRef} className="text-center mb-20">
-          <span className="inline-block py-1 px-3 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-medium tracking-wider uppercase mb-4 neon-glow-violet">
+          <span className="inline-block py-1 px-3.5 rounded-full bg-white/10 border border-white/15 text-white text-xs font-semibold tracking-wider uppercase mb-3 shadow-sm">
             My Journey
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
             The Timeline
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-emerald-500 to-amber-500 mx-auto rounded-full"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-white via-zinc-400 to-white/50 mx-auto rounded-full"></div>
         </div>
 
         <div className="relative">
           {/* Central Line Background */}
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 bg-white/5 -translate-x-1/2 rounded-full"></div>
+          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 bg-white/10 -translate-x-1/2 rounded-full"></div>
           
           {/* Animated Drawing Line */}
           <div 
             ref={lineRef}
-            className="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-emerald-500 via-amber-500 to-purple-500 -translate-x-1/2 rounded-full transform origin-top"
+            className="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-white via-zinc-300 to-zinc-500 -translate-x-1/2 rounded-full transform origin-top"
           ></div>
 
           <div className="space-y-16">
@@ -143,7 +143,7 @@ export default function Timeline() {
                   {/* Center Dot */}
                   <div 
                     ref={(el) => { dotsRef.current[index] = el; }}
-                    className="absolute left-4 md:left-1/2 w-8 h-8 rounded-full bg-black border-4 border-emerald-500 -translate-x-1/2 mt-6 flex items-center justify-center z-20 shadow-[0_0_15px_rgba(16,185,129,0.5)]"
+                    className="absolute left-4 md:left-1/2 w-8 h-8 rounded-full bg-black border-4 border-white -translate-x-1/2 mt-6 flex items-center justify-center z-20 shadow-[0_0_15px_rgba(255,255,255,0.5)]"
                   >
                     <div className="w-2 h-2 rounded-full bg-white animate-pulse"></div>
                   </div>
@@ -156,25 +156,25 @@ export default function Timeline() {
                     ref={(el) => { cardsRef.current[index] = el; }}
                     className="w-full md:w-1/2 pl-14 md:pl-0 md:px-12"
                   >
-                    <div className="glass-card tilt-card holo-border p-8 rounded-2xl bg-[#0a0a0a]/50 relative group hover:bg-[#0a0a0a]/80 transition-colors duration-300">
+                    <div className="glass-card tilt-card holo-border p-8 rounded-2xl bg-[#0a0a0a]/50 relative group hover:bg-[#0a0a0a]/80 transition-colors duration-300 border border-white/10">
                       
-                      <div className="absolute -top-4 -right-4 md:-left-4 md:right-auto w-20 h-20 bg-gradient-to-br from-emerald-500/15 to-amber-500/15 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+                      <div className="absolute -top-4 -right-4 md:-left-4 md:right-auto w-20 h-20 bg-white/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
 
                       <div className="flex items-center space-x-4 mb-4 relative z-10">
-                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-lg bg-gradient-to-br ${milestone.color}`}>
+                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-lg bg-white/10 border border-white/15`}>
                           {milestone.icon}
                         </div>
                         <div>
-                          <span className="text-emerald-400 font-mono font-semibold tracking-wider">
+                          <span className="text-white font-mono font-semibold tracking-wider text-sm">
                             {milestone.year}
                           </span>
-                          <h3 className="text-2xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-400 group-hover:to-amber-400 transition-all duration-300">
+                          <h3 className="text-2xl font-bold text-white transition-all duration-300">
                             {milestone.title}
                           </h3>
                         </div>
                       </div>
                       
-                      <p className="text-zinc-400 leading-relaxed relative z-10">
+                      <p className="text-zinc-200 leading-relaxed relative z-10 text-sm">
                         {milestone.description}
                       </p>
                     </div>

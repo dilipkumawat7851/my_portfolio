@@ -27,14 +27,10 @@ interface Bubble {
 }
 
 const glowColors = [
-  "rgba(16, 185, 129, 0.6)",  // emerald
-  "rgba(245, 158, 11, 0.5)",  // amber
-  "rgba(168, 85, 247, 0.4)",  // purple
-  "rgba(236, 72, 153, 0.4)",  // pink
-  "rgba(34, 211, 238, 0.4)",  // cyan-ish (teal, not blue)
-  "rgba(251, 191, 36, 0.5)",  // yellow
-  "rgba(239, 68, 68, 0.4)",   // red
-  "rgba(163, 230, 53, 0.4)",  // lime
+  "rgba(255, 255, 255, 0.35)",
+  "rgba(240, 245, 255, 0.3)",
+  "rgba(255, 255, 255, 0.4)",
+  "rgba(230, 240, 255, 0.25)",
 ];
 
 export default function TechBubbles() {

@@ -35,7 +35,7 @@ function SkillSphere({ position, color, name }: { position: number[]; color: str
         metalness={0.8}
       />
       <Html distanceFactor={10} center>
-        <div className="px-2 py-1 glass-card text-white text-sm font-semibold rounded pointer-events-none select-none border border-white/10" style={{ textShadow: `0 0 10px ${color}` }}>
+        <div className="px-2 py-1 glass-card text-white text-xs font-semibold rounded pointer-events-none select-none border border-white/10" style={{ textShadow: `0 0 8px rgba(255,255,255,0.6)` }}>
           {name}
         </div>
       </Html>

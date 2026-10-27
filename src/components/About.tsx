@@ -134,16 +134,16 @@ export default function About() {
     <section id="about" ref={containerRef} className="py-24 relative overflow-hidden bg-black">
       <div className="container mx-auto px-6 relative z-10">
         <div className="mb-16 text-center">
-          <span className="text-emerald-500 uppercase tracking-wider font-semibold text-sm neon-glow-violet block mb-2">About Me</span>
+          <span className="inline-block py-1 px-3.5 rounded-full bg-white/10 border border-white/15 text-white uppercase tracking-wider font-semibold text-xs mb-3 shadow-sm">About Me</span>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Get to Know <span className="gradient-text">Me</span>
+            Get to Know <span className="text-white">Me</span>
           </h2>
           <div className="section-divider mx-auto"></div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="space-y-8">
-            <div ref={textRef} className="space-y-4 text-gray-300 text-lg leading-relaxed">
+            <div ref={textRef} className="space-y-4 text-zinc-200 text-lg leading-relaxed">
               <p>
                 Hello! I am Dilip Kumawat, a passionate and dedicated technologist with a strong focus on Cloud, DevOps, and Full-Stack Development.
               </p>
@@ -166,7 +166,7 @@ export default function About() {
                       {stat.value}
                     </span>
                   </h3>
-                  <p className="text-sm text-gray-400 uppercase tracking-wide">{stat.label}</p>
+                  <p className="text-xs text-zinc-300 uppercase tracking-wider font-medium">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -177,12 +177,12 @@ export default function About() {
             {skills.map((skill, index) => (
               <div key={index} className="group">
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-gray-300 font-medium">{skill.name}</span>
-                  <span className="text-emerald-400 font-bold">{skill.level}%</span>
+                  <span className="text-white font-medium">{skill.name}</span>
+                  <span className="text-white font-bold">{skill.level}%</span>
                 </div>
                 <div className="h-3 w-full bg-gray-800 rounded-full overflow-hidden relative">
                   <div 
-                    className="skill-fill h-full bg-gradient-to-r from-emerald-500 via-amber-500 to-orange-500 rounded-full relative"
+                    className="skill-fill h-full bg-gradient-to-r from-white via-zinc-300 to-zinc-400 rounded-full relative"
                     style={{ width: `${skill.level}%` }}
                   >
                     <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full shadow-[0_0_8px_4px_rgba(255,255,255,0.6)]"></div>

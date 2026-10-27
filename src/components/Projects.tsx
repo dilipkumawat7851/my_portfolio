@@ -87,13 +87,13 @@ export default function Projects() {
     <section id="projects" ref={sectionRef} className="py-24 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div ref={headerRef} className="text-center mb-16">
-          <span className="inline-block py-1 px-3 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-medium tracking-wider uppercase mb-4 neon-glow-violet">
+          <span className="inline-block py-1 px-3.5 rounded-full bg-white/10 border border-white/15 text-white text-xs font-semibold tracking-wider uppercase mb-3 shadow-sm">
             Portfolio
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text-hero">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
             Featured Projects
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-emerald-500 to-amber-500 mx-auto rounded-full"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-white via-zinc-400 to-white/50 mx-auto rounded-full"></div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -103,10 +103,10 @@ export default function Projects() {
               ref={(el) => {
                 cardsRef.current[index] = el;
               }}
-              className="glass-card shimmer holo-border tilt-card rounded-2xl overflow-hidden group relative bg-[#0a0a0a]/50 flex flex-col h-full"
+              className="glass-card shimmer holo-border tilt-card rounded-2xl overflow-hidden group relative bg-[#0a0a0a]/50 flex flex-col h-full border border-white/10 hover:border-white/20"
             >
               {/* Gradient Top Border */}
-              <div className={`h-2 w-full bg-gradient-to-r ${project.gradient}`}></div>
+              <div className={`h-1.5 w-full bg-gradient-to-r from-white/40 via-zinc-400 to-white/20`}></div>
               
               <div className="p-8 flex flex-col flex-grow">
                 <div className="flex justify-between items-start mb-6">
@@ -119,7 +119,7 @@ export default function Projects() {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-zinc-400 hover:text-white transition-colors duration-300 p-2 bg-zinc-800/30 rounded-full hover:bg-zinc-700/50 group/link"
+                        className="text-zinc-300 hover:text-white transition-colors duration-300 p-2 bg-zinc-800/40 rounded-full hover:bg-white/10 group/link"
                       >
                         <Github size={20} className="group-hover/link:rotate-12 transition-transform duration-300" />
                       </Link>
@@ -129,7 +129,7 @@ export default function Projects() {
                         href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-zinc-400 hover:text-emerald-400 transition-colors duration-300 p-2 bg-zinc-800/30 rounded-full hover:bg-zinc-700/50 group/link"
+                        className="text-zinc-300 hover:text-white transition-colors duration-300 p-2 bg-zinc-800/40 rounded-full hover:bg-white/10 group/link"
                       >
                         <ExternalLink size={20} className="group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform duration-300" />
                       </Link>
@@ -137,11 +137,11 @@ export default function Projects() {
                   </div>
                 </div>
 
-                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-emerald-300 transition-colors duration-300">
+                <h3 className="text-2xl font-bold text-white mb-3 transition-colors duration-300">
                   {project.title}
                 </h3>
                 
-                <p className="text-zinc-400 mb-8 flex-grow leading-relaxed">
+                <p className="text-zinc-200 mb-8 flex-grow leading-relaxed text-sm">
                   {project.description}
                 </p>
 
@@ -149,7 +149,7 @@ export default function Projects() {
                   {project.tech.map((tech, techIndex) => (
                     <span
                       key={techIndex}
-                      className="tech-tag text-xs font-medium px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/20"
+                      className="tech-tag text-xs font-medium px-3 py-1.5 rounded-full bg-white/10 text-white border border-white/15"
                     >
                       {tech}
                     </span>

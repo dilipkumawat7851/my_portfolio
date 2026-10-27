@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import { PortfolioProvider } from "@/context/PortfolioContext";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -14,6 +15,7 @@ import Timeline from "@/components/Timeline";
 import Certificates from "@/components/Certificates";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import AdminModal from "@/components/AdminModal";
 
 const Scene3D = dynamic(() => import("@/components/Scene3D"), { ssr: false });
 const TechBubbles = dynamic(() => import("@/components/TechBubbles"), { ssr: false });
@@ -41,7 +43,7 @@ export default function Home() {
         { opacity: 1, scale: 1, duration: 1, ease: "power2.out" }
       )
         .to(logoRef.current, {
-          textShadow: "0 0 20px rgba(16, 185, 129, 0.8)",
+          textShadow: "0 0 25px rgba(255, 255, 255, 0.9)",
           duration: 0.5,
           yoyo: true,
           repeat: 1,
@@ -69,47 +71,53 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="relative gradient-bg min-h-screen overflow-x-hidden">
-      {/* Loading Screen */}
-      {loading && (
-        <div
-          ref={loaderRef}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black"
-        >
-          <h1
-            ref={logoRef}
-            className="text-6xl md:text-8xl font-bold text-white tracking-widest neon-glow-violet"
+    <PortfolioProvider>
+      <main className="relative gradient-bg min-h-screen overflow-x-hidden text-white">
+        {/* Loading Screen */}
+        {loading && (
+          <div
+            ref={loaderRef}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black"
           >
-            &lt;DK /&gt;
-          </h1>
+            <h1
+              ref={logoRef}
+              className="text-6xl md:text-8xl font-bold text-white tracking-widest drop-shadow-[0_0_20px_rgba(255,255,255,0.6)]"
+            >
+              &lt;DK /&gt;
+            </h1>
+          </div>
+        )}
+
+        {/* Spotlight Mouse Follower */}
+        <div ref={spotlightRef} className="spotlight" />
+
+        {/* Noise Texture Overlay for Depth */}
+        <div className="noise-overlay" />
+
+        {/* 3D Background */}
+        <div className="fixed inset-0 z-0 pointer-events-none opacity-40 mix-blend-screen">
+          <Scene3D />
         </div>
-      )}
 
-      {/* Spotlight Mouse Follower */}
-      <div ref={spotlightRef} className="spotlight" />
+        {/* Floating Tech Bubbles */}
+        <TechBubbles />
 
-      {/* Noise Texture Overlay for Depth */}
-      <div className="noise-overlay" />
+        {/* Main Sections */}
+        <div className="relative z-10">
+          <Navbar />
+          <Hero />
+          <About />
+          <Skills />
+          <Projects />
+          <Timeline />
+          <Certificates />
+          <Contact />
+          <Footer />
+        </div>
 
-      {/* 3D Background */}
-      <div className="fixed inset-0 z-0 pointer-events-none opacity-40 mix-blend-screen">
-        <Scene3D />
-      </div>
-
-      {/* Floating Tech Bubbles */}
-      <TechBubbles />
-
-      <div className="relative z-10">
-        <Navbar />
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Timeline />
-        <Certificates />
-        <Contact />
-        <Footer />
-      </div>
-    </main>
+        {/* Owner Admin Modal */}
+        <AdminModal />
+      </main>
+    </PortfolioProvider>
   );
 }
